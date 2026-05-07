@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/833/833472.png" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy 2nd Month Anniversary, Noey 🌙</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Caveat:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ★ NIGHT SKY CANVAS -->
+<canvas id="starCanvas"></canvas>
+
+<!-- ★ FLOATING COUNTER -->
+<div class="top-left-counter">
+  <div class="counter-label">Our Journey</div>
+  <div id="counter">
+    <div class="time-item highlight"><span id="months">00</span><label>Mo</label></div>
+    <div class="time-divider">·</div>
+    <div class="time-item"><span id="days">00</span><label>D</label></div>
+    <div class="time-item"><span id="hours">00</span><label>H</label></div>
+    <div class="time-item"><span id="mins">00</span><label>M</label></div>
+    <div class="time-item"><span id="secs">00</span><label>S</label></div>
+  </div>
+</div>
+
+<!-- ★ SECTION 1: HERO -->
+<section class="section-hero">
+  <h1 class="main-title">Happy 2nd Month Anniversary</h1>
+  <p class="main-subtitle">To my dearest Noey ✨</p>
+  <a class="scroll-hint" href="#section-letter">↓ Read your letter</a>
+</section>
+
+<!-- ★ SECTION 2: TYPEWRITER LETTER -->
+<section class="section-typewriter" id="section-letter">
+  <div class="section-label">A Letter For You</div>
+  <div class="paper-wrap">
+    <div class="paper" id="paper">
+      <div class="paper-ruling"></div>
+      <div class="paper-inner">
+        <div class="letter-meta">May 8, 2026</div>
+        <div class="tw-output" id="twOutput"></div>
+        <span class="tw-cursor" id="twCursor">|</span>
+      </div>
+    </div>
+    <div class="tw-footer">
+      <span class="tw-skip-hint">tap the paper to skip</span>
+      <button class="tw-replay" id="twReplay">Read again ↺</button>
+    </div>
+  </div>
+</section>
+
+<!-- ★ SECTION 3: POLAROID WALL -->
+<section class="section-polaroid" id="section-memories">
+  <div class="section-label">Our Memories</div>
+
+  <div class="corkboard-outer">
+    <div class="corkboard" id="corkboard"></div>
+  </div>
+  <p class="polaroid-hint">click any photo to expand</p>
+
+  <!-- Lightbox -->
+  <div class="polaroid-lightbox" id="polaroidLightbox">
+    <div class="lb-polaroid" id="lbPolaroid">
+      <img id="lbImg" src="" alt="">
+      <div class="lb-caption" id="lbCaption"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ★ SECTION 4: LOVE JAR -->
+<section class="section-jar" id="section-jar">
+  <div class="section-label">Things I Love About You</div>
+
+  <div class="jar-scene">
+    <!-- Jar -->
+    <div class="jar-wrapper">
+      <!-- papers peeking out above jar opening -->
+      <div class="jar-peek">
+        <div class="peek-note peek-n1">💕</div>
+        <div class="peek-note peek-n2">✨</div>
+        <div class="peek-note peek-n3">🌙</div>
+        <div class="peek-note peek-n4">💗</div>
+      </div>
+
+      <!-- jar opening ring -->
+      <div class="jar-neck"></div>
+
+      <!-- jar body -->
+      <div class="jar-body">
+        <div class="jar-shine-left"></div>
+        <div class="jar-shine-right"></div>
+        <div class="jar-label">
+          <span class="jar-label-text">for Noey</span>
+          <span class="jar-label-sub">love notes ♡</span>
+        </div>
+      </div>
+
+      <!-- jar base -->
+      <div class="jar-base"></div>
+    </div>
+
+    <button class="jar-btn" id="jarBtn">Draw a note 💌</button>
+
+    <!-- Note card -->
+    <div class="jar-card" id="jarCard">
+      <div class="jar-card-inner">
+        <div class="jar-card-hearts">♡ ♡ ♡</div>
+        <p class="jar-card-text" id="jarCardText"></p>
+        <div class="jar-card-line"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">made with love, for Noey 💕</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

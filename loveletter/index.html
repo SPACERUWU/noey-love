@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/833/833472.png" type="image/x-icon">
+  
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Letter & Chat for Novinoey</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="css/main.min.css">
+    <link rel="stylesheet" href="style.css">
+    <div class="falling-hearts"></div>
+
+    <style>
+    /* จัดการ Layout หลัก */
+    
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #000000; 
+        background: radial-gradient(circle, #1a1a1a 0%, #000000 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #ffffff;
+        overflow-x: hidden; /* ป้องกันหน้าจอส่ายซ้ายขวา */
+    }
+    
+
+    .main-wrapper {
+        display: flex;
+        flex-direction: row; 
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+        gap: 20px;
+    }
+
+    /* ฝั่งซ้าย: จดหมาย */
+    .letter-section {
+        flex: 0 0 auto;
+        width: 420px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: all 0.3s ease;
+        filter: drop-shadow(0 0 10px rgba(217, 83, 79, 0.4));
+    }
+
+    /* ฝั่งขวา: แชท */
+    .chat-section {
+        flex: 0 0 auto;
+        width: 360px;
+        display: flex;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    #mobile {
+        position: relative;
+        width: 360px;
+        height: 640px;
+        border-radius: 20px;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.1); /* เงาสีขาวนวลๆ */
+        border: 1px solid #333; /* ตัดขอบให้มือถือดูชัดขึ้น */
+        background: #fff;
+        overflow: hidden;
+    }
+
+    /* --- Responsive สำหรับ iPad Air และ Tablet --- */
+
+    /* กรณี iPad แนวนอน (Landscape) */
+    @media (max-width: 1180px) {
+        .main-wrapper {
+            gap: 10px;
+        }
+        .letter-section {
+            transform: scale(0.75);
+            margin-right: -50px; /* ลดช่องว่างที่เกิดจากการ scale */
+        }
+        .chat-section {
+            transform: scale(0.75);
+            margin-left: -50px;
+        }
+    }
+
+    /* กรณี iPad Air แนวตั้ง (Portrait) หรือหน้าจอเล็กกว่า 920px */
+    @media (max-width: 920px) {
+        .main-wrapper {
+            flex-direction: column; /* เปลี่ยนเป็นเรียง บน-ล่าง ทันที */
+            justify-content: flex-start;
+            padding-top: 40px;
+            overflow-y: auto; /* ยอมให้ไถลงล่างได้ */
+        }
+
+        .letter-section {
+            transform: scale(0.8);
+            margin-right: 0;
+            margin-bottom: -40px; /* ขยับแชทขึ้นมาใกล้ซองจดหมาย */
+        }
+
+        .chat-section {
+            transform: scale(0.85);
+            margin-left: 0;
+            margin-bottom: 40px; /* เพิ่มพื้นที่ด้านล่าง */
+        }
+    }
+
+    /* สำหรับมือถือเครื่องเล็ก */
+    @media (max-width: 480px) {
+        .letter-section {
+            transform: scale(0.65);
+            margin-bottom: -80px;
+        }
+        .chat-section {
+            transform: scale(0.75);
+        }
+    }
+
+    .falling-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+</style>
+</head>
+<body>
+  <h1 class="main-title">To my girlfriend Noey...</h1>
+  <div class="top-left-counter">
+    <div class="counter-label">Our Journey</div>
+    <div id="counter">
+        <div class="time-item"><span id="days">00</span><label>D</label></div>
+        <div class="time-item"><span id="hours">00</span><label>H</label></div>
+        <div class="time-item"><span id="mins">00</span><label>M</label></div>
+        <div class="time-item"><span id="secs">00</span><label>S</label></div>
+    </div>
+</div>
+  
+
+  <div class="background-images">
+    <img src="img/10.PNG" class="bg-img bottom-left" alt="decor">\
+    <img src="img/11.png" class="bg-img bottom-right" alt="decor">
+</div>
+
+    <div class="main-wrapper">
+        
+        <div class="letter-section">
+            <div class="envlope-wrapper">
+                <div id="envelope" class="close">
+                    <div class="front flap"></div>
+                    <div class="front pocket"></div>
+                    <div class="letter">
+                        <div class="words line1">To: Noey</div>
+                        <div class="words line2">Happy 1st Month Anniversary!</div>
+                        <div class="words line3">This is just the beginning</div>
+                        <div class="words line4">of our beautiful journey together.</div>
+                    </div>
+                    <div class="hearts">
+                        <div class="heart a1"></div>
+                        <div class="heart a2"></div>
+                        <div class="heart a3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="reset">
+                <button id="open">Open</button>
+                <button id="reset">Close</button>
+            </div>
+        </div>
+
+        <div class="chat-section">
+            <div id="mobile" :class="{ 'has-prompt': hasPrompt }">
+                <div id="mobile-head">
+                    <div id="mobile-head-title">Chatting with My Love</div>
+                </div>
+                <div id="mobile-body">
+                    <div id="mobile-body-bg"></div>
+                    <div id="mobile-body-content">
+                        <div id="mock-msg-row" class="msg-row">
+                            <div id="mock-msg" class="msg" v-html="latestMsgContent"></div>
+                        </div>
+                        <div class="msg-row"
+                            v-for="(msg, index) in messages"
+                            :key="index"
+                            :class="msg.author === 'author' ? 'msg-author' : 'msg-me'">
+                            <div class="msg"
+                                :class="'msg-bounce-in-' + (msg.author === 'author' ? 'left': 'right')"
+                                :style="msg.width && msg.height && {width: msg.width - 26 + 'px', height: msg.height - 18 + 'px'}"
+                                v-html="msg.content"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="mobile-foot">
+                    <div id="prompt">
+                        <div id="prompt-head">
+                            <div class="say-something">I want to say...</div>
+                            <a href="javascript:;" class="close-btn" v-on:click="togglePrompt(false)"></a>
+                        </div>
+                        <div id="prompt-body">
+                            <ul class="responses" v-if="lastDialog">
+                                <li v-for="res in lastDialog.responses">
+                                    <a href="javascript:;" v-on:click="respond(res)">{{ res.content }}</a>
+                                </li>
+                            </ul>
+                            <div class="next-topic" v-if="!lastDialog || !lastDialog.responses">
+                                <ul class="topics">
+                                    <li v-for="topic in nextTopics">
+                                        <a href="javascript:;" v-on:click="ask(topic)">{{ topic.brief }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="input-hint" class="say-something"
+                        v-on:click="togglePrompt(true)"
+                        :class="{'clickable': !isTyping }">
+                        <span v-if="!isTyping">I want to say...</span>
+                        <span v-if="isTyping">My love is typing</span>
+                    </div>
+                </div>
+                <div id="prompt-bg" v-on:click="togglePrompt(false)"></div>
+            </div>
+        </div>
+        <div class="footer-text">Scroll to see our chat 💌</div>
+
+    </div>
+
+    <div class="chapter-next">
+        <div class="chapter-label">Our story continues...</div>
+        <a class="chapter-btn" href="../loveletter2/index.html">
+            Month 2 &rarr;
+        </a>
+    </div>
+
+    <script src="//cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+    <script src="//cdn.bootcss.com/vue/2.2.6/vue.min.js"></script>
+    
+    <script src="script.js"></script> <script src="js/index-min.js"></script> 
+
+    <script>
+    // ฟังก์ชันสร้างกลีบกุหลาบ
+    function createPetals() {
+        const container = document.querySelector('.falling-hearts');
+        if (!container) return; // กันพลาดถ้าหา container ไม่เจอ
+
+        const petalCount = 35;
+        const colors = ['#ff4d6d', '#ff758f', '#c9184a', '#ffb3c1'];
+
+        for (let i = 0; i < petalCount; i++) {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            
+            const size = Math.random() * 15 + 10 + 'px';
+            petal.style.width = size;
+            petal.style.height = size;
+            
+            petal.style.left = Math.random() * 100 + 'vw';
+            // สุ่มตำแหน่งเริ่มต้นให้กระจายทั่วหน้าจอ ไม่ใช่แค่ข้างบน
+            petal.style.top = Math.random() * -100 + 'vh'; 
+            
+            petal.style.animationDuration = Math.random() * 5 + 5 + 's';
+            petal.style.animationDelay = Math.random() * 5 + 's';
+            petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            container.appendChild(petal);
+        }
+    }
+
+    // แก้ไขตรงนี้: รอให้หน้าเว็บโหลดเสร็จสมบูรณ์ก่อนเริ่มทำงาน
+    window.addEventListener('load', function() {
+        createPetals();
+        console.log("Petals created!"); // เช็กใน Inspect Element ว่าทำงานไหม
+    });
+</script>
+
+<script>
+    function updateLoveCounter() {
+        // *** เปลี่ยนวันที่เริ่มคบกันตรงนี้ (ปี-เดือน-วัน) ***
+        const startDate = new Date("2026-03-08T14:30:00"); 
+        const now = new Date();
+        const diff = now - startDate;
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const m = Math.floor((diff / (1000 * 60)) % 60);
+        const s = Math.floor((diff / 1000) % 60);
+
+        // ใส่เลข 0 ข้างหน้าถ้าหลักเดียว
+        document.getElementById('days').innerText = d.toString().padStart(2, '0');
+        document.getElementById('hours').innerText = h.toString().padStart(2, '0');
+        document.getElementById('mins').innerText = m.toString().padStart(2, '0');
+        document.getElementById('secs').innerText = s.toString().padStart(2, '0');
+    }
+
+    // รันทุกวินาที
+    setInterval(updateLoveCounter, 1000);
+    updateLoveCounter(); // รันทันทีที่โหลดหน้าจอ
+</script>
+
+  </body>
+</html>

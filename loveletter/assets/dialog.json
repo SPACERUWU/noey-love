@@ -1,0 +1,52 @@
+{
+    "fromMe": [{
+        "id": "0000",
+        "details": [
+            [
+                "Happy 1st Month Anniversary! ",
+                "To my dearest Noey...😘",
+                "I can't believe it's already been a month since we started this journey.",
+                "Time flies so fast when I'm with you",
+                "Thank you for being here with me every day. ❤️",
+                "<img src='img/1.JPG'>",
+                "Do you remember the first day we talked? 😊",
+                "From strangers to the person who be my gf.",
+                "<img src='img/2.jpg'>",
+                "Even though it's only been about 4 months...",
+                "It feels like I've known you so longgg 😂",
+                "<img src='img/3.jpg'>",
+                "I'm sorry if I'm a bit clingy 🙂",
+                "But everything I do is because I care about you so much naaa Bibi ",
+                "<img src='img/4.jpg'>",
+                "Every moment spent with you...",
+                "Has become my favorite memory jing jing na !!!",
+                "<img src='img/5.jpg'>",
+                "I want to wake up to talk with U every morning",
+                "I want to travel to a thousand more places with you ",
+                "<img src='img/6.jpg'>",
+                "Let's keep growing and learning about each other like this ",
+                "I promise to cherish our love the best I can 😍",
+                "<img src='img/7.jpg'>",
+                "I love you more than words can say na, Novi Noey! ❤️",
+                "Do U love me wa I Noey ????"
+            ]
+        ],
+        "responses": [{
+            "content": "I love you too ❤️",
+            "nextAuthor": ["0001"]
+        }]
+    }, {
+        "id": "0001",
+        "details": [
+            [
+                "<img src='img/8.JPG'>",
+                "I'm so happy to hear that naaa teeruk 😁",
+                "From this day forward ",
+                "I'll make every day feel like the first day we became a couple 😘",
+                "I promise I’m not going anywhere. 😙",
+                "Happy 1st Month Anniversary na kubb, my love 😉"
+            ]
+        ]
+    }],
+    "fromUser": []
+}

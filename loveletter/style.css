@@ -1,0 +1,587 @@
+#envelope {
+  position: relative;
+  width: 420px;
+  height: 270px;
+  border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px;
+  margin: 0 auto;
+  background-color: #d9534f; /* Warm romantic red */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.front {
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 3;
+}
+
+.flap {
+  border-left: 210px solid transparent;
+  border-right: 210px solid transparent;
+  border-bottom: 123px solid transparent;
+  /* a little smaller */
+  border-top: 147px solid #d9534f; /* Same romantic red */
+  /* a little larger */
+  transform-origin: top;
+  pointer-events: none;
+}
+
+.pocket {
+  border-left: 210px solid #f5a3a2; /* Soft pinkish red for the pocket */
+  border-right: 210px solid #f5a3a2;
+  border-bottom: 135px solid #ff6f61; /* Lighter romantic red */
+  border-top: 135px solid transparent;
+  border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px;
+}
+
+.letter {
+  position: relative;
+  background-color: #fff;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 90%;
+  top: 5%;
+  border-radius: 9px;
+  box-shadow: 0 2px 26px rgba(0, 0, 0, 0.12);
+  font-family: "Dancing Script", cursive;
+}
+
+.letter:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.letter .words {
+    color: #000000 !important;
+    font-family: 'Dancing Script', cursive;
+    background-color: rgba(255, 230, 230, 0.5); /* ใส่สีจางๆ ตามหลังตัวอักษรให้ดูเหมือนกระดาษ */
+    z-index: 10;
+}
+
+.words {
+  position: absolute;
+  left: 10%;
+  width: 80%;
+  height: 14%;
+  background-color: #000000; /* Light romantic tone */
+}
+
+.words.line1 {
+  top: 10%;
+  font-size: 0.5rem;
+  width: 20%;
+  height: 7%;
+  font-size: 1rem;
+}
+
+.words.line2 {
+  top: 30%;
+  text-align: center;
+  font-size: 1.65rem;
+}
+
+.words.line3 {
+  top: 50%;
+  font-size: 1.65rem;
+  text-align: center;
+}
+
+.words.line4 {
+  top: 70%;
+  font-size: 1.65rem;
+  text-align: center;
+}
+
+.open .flap {
+  transform: rotateX(180deg);
+  transition: transform 0.4s ease, z-index 0.6s;
+  z-index: 1;
+}
+
+.close .flap {
+  transform: rotateX(0deg);
+  transition: transform 0.4s 0.6s ease, z-index 1s;
+  z-index: 5;
+}
+
+.close .letter {
+  transform: translateY(0px);
+  transition: transform 0.4s ease, z-index 1s;
+  z-index: 1;
+}
+
+.open .letter {
+  transform: translateY(-150px);
+  transition: transform 0.4s 0.6s ease, z-index 0.6s;
+  z-index: 2;
+}
+
+.hearts {
+  position: absolute;
+  top: 135px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.heart {
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  pointer-events: none;
+}
+
+.heart:before,
+.heart:after {
+  position: absolute;
+  content: "";
+  left: 50px;
+  top: 0;
+  width: 50px;
+  height: 80px;
+  background: #e60073; /* Deep romantic pink */
+  border-radius: 50px 50px 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+  pointer-events: none;
+}
+
+.heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+.close .heart {
+  opacity: 0;
+  -webkit-animation: none;
+  animation: none;
+}
+
+.a1 {
+  left: 20%;
+  transform: scale(0.6);
+  opacity: 1;
+  -webkit-animation: slideUp 4s linear 1, sideSway 2s ease-in-out 4 alternate;
+  -moz-animation: slideUp 4s linear 1, sideSway 2s ease-in-out 4 alternate;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-delay: 0.7s;
+  animation-delay: 0.7s;
+}
+
+.a2 {
+  left: 55%;
+  transform: scale(1);
+  opacity: 1;
+  -webkit-animation: slideUp 5s linear 1, sideSway 4s ease-in-out 2 alternate;
+  -moz-animation: slideUp 5s linear 1, sideSway 4s ease-in-out 2 alternate;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-delay: 0.7s;
+  animation-delay: 0.7s;
+}
+
+.a3 {
+  left: 10%;
+  transform: scale(0.8);
+  opacity: 1;
+  -webkit-animation: slideUp 7s linear 1, sideSway 2s ease-in-out 6 alternate;
+  -moz-animation: slideUp 7s linear 1, sideSway 2s ease-in-out 6 alternate;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-delay: 0.7s;
+  animation-delay: 0.7s;
+}
+
+@-webkit-keyframes slideUp {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: -600px;
+  }
+}
+@keyframes slideUp {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: -600px;
+  }
+}
+@-webkit-keyframes sideSway {
+  0% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: 50px;
+  }
+}
+@keyframes sideSway {
+  0% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: 50px;
+  }
+}
+body {
+  background-color: black;
+  background: black; /* Soft lavender for a romantic, dreamy feel */
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Container layout for side-by-side display */
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: center;
+  width: 100%;
+}
+
+.letter-section {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-section {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.envlope-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 240px;
+}
+
+.reset {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.reset button {
+  font-weight: 800;
+  font-style: normal;
+  transition: all 0.1s linear;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: solid 2px #d9534f;
+  border-radius: 4px;
+  color: #d9534f;
+  display: inline-block;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin: 5px;
+  padding: 10px;
+  line-height: 1em;
+  text-decoration: none;
+  min-width: 120px;
+  cursor: pointer;
+}
+
+
+.reset button:hover {
+  background-color: #d9534f;
+  color: #fff;
+}
+
+/* Responsive layout for mobile devices */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .letter-section {
+    flex: 0 0 auto;
+  }
+  
+  #envelope {
+    transform: scale(0.8);
+  }
+}
+
+/* --- Falling Petals (Rose Petals) CSS --- */
+
+/* 1. Container หลักที่คลุมทั้งหน้าจอ */
+.falling-hearts {
+    position: fixed; /* ล็อคให้อยู่กับที่ */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* ห้ามคลิกโดน */
+    z-index: 0; /* อยู่หลังสุด ถ้าอยากให้ทับจดหมาย/แชท ให้เปลี่ยนเป็น 9999 */
+    overflow: hidden; /* กันปากซองหรือกลีบหลุดออกนอกจอ */
+}
+
+/* 2. สไตล์ของกลีบกุหลาบแต่ละกลีบ */
+.petal {
+    position: absolute;
+    background-color: #ff4d6d; /* สีชมพูกลีบกุหลาบ */
+    border-radius: 150% 0 150% 0; /* รูปทรงกลีบดอกไม้ (แบบหัวใจกลับด้านนิดนึง) */
+    opacity: 0; /* เริ่มต้นด้วยการซ่อนไว้ */
+    animation: fall linear infinite; /* ใช้ Animation ชื่อ fall แบบต่อเนื่องตลอดไป */
+}
+
+/* 3. Animation การร่วงและการหมุน (Falling & Rotating) */
+@keyframes fall {
+    0% {
+        /* เริ่มต้นที่นอกขอบบนของจอ */
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        /* ค่อยๆ ปรากฏขึ้นมา */
+        opacity: 0.8;
+    }
+    100% {
+        /* ร่วงลงไปที่นอกขอบล่างของจอ พร้อมหมุน */
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.main-title {
+    position: absolute;
+    top: 5%; /* ปรับระยะห่างจากขอบบน */
+    width: 100%;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem;
+    color: #ff4d6d; /* สีชมพูเดียวกับกลีบกุหลาบ */
+    text-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
+    z-index: 10;
+    margin: 0;
+    pointer-events: none; /* เพื่อไม่ให้ขวางการคลิกจดหมาย */
+}
+
+/* ปรับขนาด Title สำหรับ iPad/มือถือ */
+@media (max-width: 920px) {
+    .main-title {
+        font-size: 2rem;
+        top: 2%;
+    }
+}
+.footer-text {
+    position: absolute;
+    bottom: 80px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.chapter-next {
+    position: fixed;
+    bottom: 24px;
+    right: 28px;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.chapter-label {
+    font-family: 'Dancing Script', cursive;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 1px;
+}
+
+.chapter-btn {
+    display: inline-block;
+    padding: 10px 22px;
+    background: transparent;
+    border: 1.5px solid #d9534f;
+    border-radius: 30px;
+    color: #d9534f;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    animation: glowPulse 2.5s ease-in-out infinite;
+}
+
+.chapter-btn:hover {
+    background: #d9534f;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(217, 83, 79, 0.5);
+    animation: none;
+}
+
+@keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 6px rgba(217, 83, 79, 0.3); }
+    50%       { box-shadow: 0 0 18px rgba(217, 83, 79, 0.7); }
+}
+
+/* Container สำหรับรูปพื้นหลัง */
+.background-images {
+    position: fixed; /* ล็อคให้อยู่กับที่ ไม่เลื่อนตามการ Scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* ห้ามคลิกโดน */
+    z-index: -1; /* อยู่หลังจดหมายและแชท (แต่หน้าพื้นหลังสีดำ radial-gradient) */
+    overflow: hidden;
+}
+
+/* สไตล์พื้นฐานของรูปพื้นหลังทุกรูป */
+.bg-img {
+    position: absolute;
+    width: 250px; /* ปรับขนาดความกว้างตามต้องการ */
+    height: auto;
+    opacity: 0.15; /* ปรับความจาง (0.0 - 1.0) แนะนำให้จางมากๆ เพื่อความหรู */
+     /* ทำเป็นขาวดำ (เลือกใช้หรือไม่ก็ได้) */
+    transition: all 0.5s ease;
+}
+
+/* --- จัดตำแหน่งแต่ละมุม --- */
+.top-left {
+    top: -20px;
+    left: -20px;
+    /* transform: rotate(-10deg); */ /* หมุนรูปเล็กน้อยถ้าต้องการ */
+}
+
+.top-right {
+    top: -20px;
+    right: -20px;
+    /* transform: rotate(10deg); */
+}
+
+.bottom-left {
+    bottom: -20px;
+    left: -20px;
+    /* transform: rotate(10deg); */
+}
+
+.bottom-right {
+    bottom: -20px;
+    right: -20px;
+    /* transform: rotate(-10deg); */
+}
+
+/* --- Responsive สำหรับ iPad และมือถือ --- */
+@media (max-width: 920px) {
+    .bg-img {
+        width: 150px; /* ย่อขนาดรูปลงเมื่อจอเล็ก */
+        opacity: 0.1; /* ลดความเข้มลงอีกเพื่อไม่ให้กวนสายตา */
+    }
+}
+
+/* จัดตำแหน่งตัวนับเวลาไว้ซ้ายบน */
+.top-left-counter {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100; /* ให้อยู่เหนือทุกอย่าง */
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 77, 109, 0.2);
+    padding: 10px 15px;
+    border-radius: 15px;
+    pointer-events: none; /* เพื่อไม่ให้ขวางการคลิกส่วนอื่นๆ */
+}
+
+.counter-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ff4d6d;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#counter {
+    display: flex;
+    gap: 10px;
+}
+
+.time-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 30px;
+}
+
+.time-item span {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.time-item label {
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ปรับขนาดเมื่อจอมือถือเล็ก */
+@media (max-width: 480px) {
+    .top-left-counter {
+        top: 10px;
+        left: 10px;
+        padding: 8px;
+    }
+    .time-item span { font-size: 0.9rem; }
+}
+html, body {
+    /* ใช้ background-color อย่างเดียว เพื่อให้สีดำอยู่ชั้นล่างสุด */
+    background-color: #000000 !important;
+    
+    /* ใช้ background-image สำหรับทำ Gradient โดยไม่ไปยุ่งกับพื้นหลังส่วนอื่น */
+    background-image: radial-gradient(circle, #1a1a1a 0%, #000000 100%) !important;
+    
+    /* ป้องกันไม่ให้ Gradient ไปทับรูปภาพ */
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}
+
+/* ตรวจสอบว่า Container ของรูปภาพอยู่หน้าสุด */
+.background-images {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2; /* ดันรูปภาพขึ้นมาอยู่เหนือ Gradient */
+    pointer-events: none;
+}
+
+.bg-img {
+    position: absolute;
+    z-index: 3; /* รูปแต่ละรูปต้องมี z-index สูงกว่าพื้นหลัง */
+    opacity: 0.2; /* ปรับความจางตามชอบ */
+}

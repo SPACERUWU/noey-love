@@ -1,0 +1,60 @@
+{
+    "fromMe": [{
+        "id": "0000",
+        "details": [
+            [
+                "Happy 2nd Month Anniversary na kubb! 🌙✨",
+                "Two whole months...",
+                "It feels like it went by so fast 😭",
+                "But also like I've known you forever",
+                "Do you remember that thing we laughed about until we couldn't breathe? 😂",
+                "I still think about it sometimes and just smile alone like an idiot 🙃",
+                "This month was different from the first...",
+                "The first month I was still nervous around you haha",
+                "But now I feel so comfortable with you",
+                "Like I can just be myself — even when I'm weird 🙈",
+                "I love that about us",
+                "Thank you for not running away from my chaos 😂❤️",
+                "Seriously though na Noey...",
+                "Every morning I wake up and the first thing I think about is you",
+                "That's how I know you're different from anyone I've ever met",
+                "Are you free later? I want to talk to you 🥺"
+            ]
+        ],
+        "responses": [{
+            "content": "Yes, always free for you 💕",
+            "nextAuthor": ["0001"]
+        }, {
+            "content": "Aww... you're so cheesy 😂",
+            "nextAuthor": ["0002"]
+        }]
+    }, {
+        "id": "0001",
+        "details": [
+            [
+                "That's exactly what I love to hear 🥺❤️",
+                "Okay then... I just want to say one more thing",
+                "Month 1 I fell for you.",
+                "Month 2 I fell harder.",
+                "I can't wait to see what Month 3 feels like 😍",
+                "Happy 2nd Anniversary na teeruk 💕",
+                "I love you, Noey. More than I can put into words."
+            ]
+        ]
+    }, {
+        "id": "0002",
+        "details": [
+            [
+                "I AM cheesy okay don't judge me 😤😂",
+                "It's your fault for being so loveable!!!",
+                "Anyway... 🙈",
+                "I just wanted you to know that these two months have meant everything to me",
+                "Every single text, every late night call, every shared laugh",
+                "I keep them all na",
+                "Happy 2nd Month Anniversary, Noey 🌙",
+                "I love you so much 💕"
+            ]
+        ]
+    }],
+    "fromUser": []
+}
