@@ -319,7 +319,7 @@ updateLoveCounter();
     { src: 'img/2-1.jpg', caption: 'One whole month 🎉', rot: -9,  left: 18,  top: 30  },
     { src: 'img/2-2.jpg', caption: 'First Carbonara Together',            rot:  5,  left: 210, top: 18  },
     { src: 'img/2-3.jpg', caption: 'Best friend Vs Boyfriend ♡',             rot: -4,  left: 400, top: 28  },
-    { src: 'img/2-4.JPG', caption: 'First Songkran w U ',             rot:  8,  left: 600, top: 16  },
+    { src: 'img/2-4.jpg', caption: 'First Songkran w U ',             rot:  8,  left: 600, top: 16  },
     { src: 'img/2-5.jpg', caption: 'So Cutee waaa',            rot:-11,  left: 30,  top: 280 },
     { src: 'img/2-6.jpg', caption: 'Drunk Girl',             rot:  6,  left: 220, top: 265 },
     { src: 'img/2-7.jpg', caption: 'First Kra Pao',               rot: -5,  left: 420, top: 275 },
