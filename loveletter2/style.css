@@ -699,6 +699,44 @@ section {
   color: rgba(255,150,180,0.5);
 }
 
+/* ===== CHAPTER NEXT ===== */
+.chapter-next {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 20px 60px;
+}
+
+.chapter-label {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1rem;
+  color: rgba(255,150,180,0.45);
+  letter-spacing: 2px;
+}
+
+.chapter-btn {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  padding: 10px 32px;
+  border-radius: 30px;
+  border: 1.5px solid rgba(192,57,94,0.45);
+  color: #ff6496;
+  text-decoration: none;
+  background: rgba(192,57,94,0.06);
+  transition: all 0.25s;
+}
+
+.chapter-btn:hover {
+  background: #c0395e;
+  color: #fff;
+  border-color: #c0395e;
+  box-shadow: 0 0 24px rgba(192,57,94,0.4);
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 700px) {
   .timeline::before { left: 20px; }

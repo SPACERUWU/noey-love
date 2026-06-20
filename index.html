@@ -1,60 +1,357 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/833/833472.png" type="image/x-icon">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="1; url=loveletter/">
   <title>For Noey 💕</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      height: 100%;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+
+    body {
       background: #04040f;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+      min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
     }
-    .wrap { text-align: center; }
-    .title {
-      font-family: 'Dancing Script', cursive;
-      font-size: 2.4rem;
-      color: #fff;
-      text-shadow: 0 0 30px rgba(255,100,150,0.6);
-      opacity: 0;
-      animation: fadeIn 0.8s ease 0.2s forwards;
+
+    canvas#bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
     }
-    .dot-row {
-      margin-top: 24px;
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 900px;
+      padding: 40px 24px 60px;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* ---- counter ---- */
+    .counter-wrap {
+      display: flex;
+      align-items: center;
       gap: 8px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,100,150,0.18);
+      backdrop-filter: blur(12px);
+      padding: 8px 20px;
+      border-radius: 30px;
+      margin-bottom: 40px;
+      animation: fadeDown 0.7s ease both;
+    }
+
+    .counter-heart { color: #ff6496; font-size: 0.85rem; }
+
+    .counter-wrap span {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 1.5px;
+    }
+
+    .counter-wrap strong {
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* ---- hero ---- */
+    .hero-label {
+      font-family: 'Caveat', cursive;
+      font-size: 0.9rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: rgba(255,150,180,0.45);
+      margin-bottom: 12px;
+      animation: fadeDown 0.7s ease 0.1s both;
+    }
+
+    .hero-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(2.6rem, 7vw, 5rem);
+      color: #fff;
+      text-shadow: 0 0 60px rgba(255,100,150,0.35), 0 0 120px rgba(255,100,150,0.12);
+      text-align: center;
+      line-height: 1.15;
+      animation: fadeDown 0.8s ease 0.2s both;
+    }
+
+    .hero-sub {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.3rem;
+      color: rgba(255,200,220,0.6);
+      margin-top: 10px;
+      animation: fadeDown 0.8s ease 0.3s both;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,100,150,0.4), transparent);
+      margin: 36px auto;
+      animation: fadeDown 0.8s ease 0.4s both;
+    }
+
+    /* ---- chapter grid ---- */
+    .chapter-label {
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 28px;
+      animation: fadeDown 0.8s ease 0.5s both;
+    }
+
+    .chapters {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+      animation: fadeDown 0.9s ease 0.6s both;
+    }
+
+    @media (max-width: 600px) {
+      .chapters { grid-template-columns: 1fr; max-width: 320px; }
+    }
+
+    .chapter-card {
+      position: relative;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 28px 20px 24px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.3s, border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .chapter-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
       opacity: 0;
-      animation: fadeIn 0.6s ease 0.7s forwards;
+      transition: opacity 0.3s;
     }
-    .dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: #ff6496;
-      animation: pulse 1.2s ease-in-out infinite;
+
+    .chapter-card:hover {
+      transform: translateY(-6px);
     }
-    .dot:nth-child(2) { animation-delay: 0.2s; }
-    .dot:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes fadeIn { to { opacity: 1; } }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1);   opacity: 0.5; }
-      50%       { transform: scale(1.4); opacity: 1;   }
+
+    /* month 1 — pink rose */
+    .chapter-card.m1 { border-color: rgba(255,100,150,0.25); }
+    .chapter-card.m1::before { background: radial-gradient(circle at 50% 0%, rgba(255,100,150,0.12), transparent 70%); }
+    .chapter-card.m1:hover { border-color: rgba(255,100,150,0.55); box-shadow: 0 12px 40px rgba(255,100,150,0.18); }
+    .chapter-card.m1:hover::before { opacity: 1; }
+    .chapter-card.m1 .c-num { color: #ff6496; }
+    .chapter-card.m1 .c-btn { border-color: rgba(255,100,150,0.5); color: #ff6496; }
+    .chapter-card.m1 .c-btn:hover { background: #c0395e; color: #fff; border-color: #c0395e; }
+
+    /* month 2 — moonlight lavender */
+    .chapter-card.m2 { border-color: rgba(180,130,255,0.25); }
+    .chapter-card.m2::before { background: radial-gradient(circle at 50% 0%, rgba(180,130,255,0.12), transparent 70%); }
+    .chapter-card.m2:hover { border-color: rgba(180,130,255,0.55); box-shadow: 0 12px 40px rgba(180,130,255,0.18); }
+    .chapter-card.m2:hover::before { opacity: 1; }
+    .chapter-card.m2 .c-num { color: #b48fff; }
+    .chapter-card.m2 .c-btn { border-color: rgba(180,130,255,0.5); color: #b48fff; }
+    .chapter-card.m2 .c-btn:hover { background: #7b2d8b; color: #fff; border-color: #7b2d8b; }
+
+    /* month 3 — golden firefly */
+    .chapter-card.m3 { border-color: rgba(244,162,97,0.25); }
+    .chapter-card.m3::before { background: radial-gradient(circle at 50% 0%, rgba(244,162,97,0.12), transparent 70%); }
+    .chapter-card.m3:hover { border-color: rgba(244,162,97,0.55); box-shadow: 0 12px 40px rgba(244,162,97,0.18); }
+    .chapter-card.m3:hover::before { opacity: 1; }
+    .chapter-card.m3 .c-num { color: #f4a261; }
+    .chapter-card.m3 .c-btn { border-color: rgba(244,162,97,0.5); color: #f4a261; }
+    .chapter-card.m3 .c-btn:hover { background: #d4742a; color: #fff; border-color: #d4742a; }
+
+    .c-emoji { font-size: 2rem; margin-bottom: 4px; }
+
+    .c-num {
+      font-family: 'Dancing Script', cursive;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .c-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      color: #fff;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .c-desc {
+      font-size: 0.72rem;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.35);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .c-btn {
+      margin-top: 8px;
+      padding: 7px 22px;
+      border-radius: 20px;
+      border: 1.5px solid;
+      background: transparent;
+      font-size: 0.78rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      font-family: inherit;
+    }
+
+    .site-footer {
+      margin-top: 48px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1rem;
+      color: rgba(255,150,180,0.3);
+      animation: fadeDown 0.9s ease 0.8s both;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="title">For Noey 💕</div>
-    <div class="dot-row">
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
+  <canvas id="bg"></canvas>
+
+  <div class="page">
+
+    <div class="counter-wrap">
+      <span class="counter-heart">♡</span>
+      <span>together for <strong id="dayCount">...</strong> days</span>
     </div>
+
+    <p class="hero-label">a love story</p>
+    <h1 class="hero-title">For Noey 💕</h1>
+    <p class="hero-sub">chapter by chapter</p>
+
+    <div class="divider"></div>
+
+    <p class="chapter-label">choose a chapter</p>
+
+    <div class="chapters">
+      <a class="chapter-card m1" href="loveletter/index.html">
+        <div class="c-emoji">💌</div>
+        <div class="c-num">Month 1</div>
+        <div class="c-title">First Words</div>
+        <div class="c-desc">The letter that started everything. Our first chat.</div>
+        <button class="c-btn">Open</button>
+      </a>
+
+      <a class="chapter-card m2" href="loveletter2/index.html">
+        <div class="c-emoji">🌙</div>
+        <div class="c-num">Month 2</div>
+        <div class="c-title">Growing Together</div>
+        <div class="c-desc">Memories on the wall. Notes from the heart.</div>
+        <button class="c-btn">Open</button>
+      </a>
+
+      <a class="chapter-card m3" href="loveletter3/index.html">
+        <div class="c-emoji">🌿</div>
+        <div class="c-num">Month 3</div>
+        <div class="c-title">Quietly in Love</div>
+        <div class="c-desc">Three months of growing, feeling, knowing.</div>
+        <button class="c-btn">Open</button>
+      </a>
+    </div>
+
+    <footer class="site-footer">made with love, just for you ♡</footer>
   </div>
+
+  <script>
+    // day counter
+    (function () {
+      const start = new Date("2026-03-08T14:30:00");
+      function update() {
+        const d = Math.floor((new Date() - start) / 86400000);
+        document.getElementById('dayCount').textContent = d;
+      }
+      update();
+      setInterval(update, 60000);
+    })();
+
+    // soft particle background
+    (function () {
+      const canvas = document.getElementById('bg');
+      const ctx = canvas.getContext('2d');
+      let W, H, pts = [];
+
+      function resize() {
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+        build();
+      }
+
+      function build() {
+        pts = [];
+        const n = Math.floor((W * H) / 6000);
+        for (let i = 0; i < n; i++) {
+          pts.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            r: Math.random() * 1.4 + 0.3,
+            a: Math.random() * 0.6 + 0.15,
+            as: (Math.random() * 0.012 + 0.003) * (Math.random() > 0.5 ? 1 : -1),
+          });
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        const g = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W,H)*0.8);
+        g.addColorStop(0, '#0a0418');
+        g.addColorStop(1, '#04040f');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, W, H);
+
+        for (const p of pts) {
+          p.a += p.as;
+          if (p.a > 0.8 || p.a < 0.1) p.as *= -1;
+          ctx.save();
+          ctx.globalAlpha = p.a;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+          ctx.fillStyle = '#fff';
+          ctx.fill();
+          ctx.restore();
+        }
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+      draw();
+    })();
+  </script>
 </body>
 </html>
