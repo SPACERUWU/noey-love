@@ -53,9 +53,9 @@
     if (item) item.classList.toggle('done', !!val);
   }
 
-  // ── Fetch full state from Firebase ────────────────────────────────
+  // ── Fetch full state from Firebase (no-cache) ─────────────────────
   function syncAll() {
-    fetch(`${DB}.json`)
+    fetch(`${DB}.json`, { cache: 'no-store' })
       .then(r => { if (!r.ok) throw r.status; return r.json(); })
       .then(data => {
         setDot(true);
