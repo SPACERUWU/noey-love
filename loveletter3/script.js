@@ -38,35 +38,25 @@
   blocks.forEach(b => obs.observe(b));
 })();
 
-// ===== WISHLIST — Firebase real-time sync =====
+// ===== WISHLIST — Firebase SDK real-time sync =====
 (function () {
   const items = document.querySelectorAll('.wish-item');
   if (!items.length) return;
 
-  const DB   = 'https://noey-3b12d-default-rtdb.asia-southeast1.firebasedatabase.app/wishlist';
-  const dot  = document.getElementById('syncDot');
+  const dot    = document.getElementById('syncDot');
   const setDot = (ok) => { if (dot) { dot.textContent = ok ? '🟢' : '🔴'; dot.style.opacity = '1'; } };
 
-  // ── Apply a single key's state to the UI ──────────────────────────
-  function applyState(key, val) {
-    const item = document.querySelector(`.wish-item[data-key="${key}"]`);
-    if (item) item.classList.toggle('done', !!val);
-  }
+  const db     = firebase.database();
+  const wRef   = db.ref('wishlist');
 
-  // ── Fetch full state from Firebase (no-cache) ─────────────────────
-  function syncAll() {
-    fetch(`${DB}.json`, { cache: 'no-store' })
-      .then(r => { if (!r.ok) throw r.status; return r.json(); })
-      .then(data => {
-        setDot(true);
-        if (!data || typeof data !== 'object') return;
-        Object.entries(data).forEach(([k, v]) => applyState(k, v));
-      })
-      .catch(err => { console.error('[wishlist] Firebase error', err); setDot(false); });
-  }
-
-  syncAll();
-  setInterval(syncAll, 3000);
+  // ── Real-time WebSocket listener — fires instantly on any change ───
+  wRef.on('value', (snapshot) => {
+    const data = snapshot.val() || {};
+    items.forEach(item => {
+      item.classList.toggle('done', !!data[item.dataset.key]);
+    });
+    setDot(true);
+  }, () => setDot(false));
 
   // ── Scroll reveal + click handlers ────────────────────────────────
   items.forEach((item) => {
@@ -83,12 +73,9 @@
     obs.observe(item);
 
     function toggle() {
-      const done = item.classList.toggle('done'); // optimistic update
-      fetch(`${DB}/${key}.json`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(done),
-      }).catch(() => item.classList.toggle('done', !done)); // revert on error
+      const done = !item.classList.contains('done');
+      item.classList.toggle('done', done); // optimistic
+      wRef.child(key).set(done).catch(() => item.classList.toggle('done', !done));
     }
 
     item.addEventListener('click', toggle);
