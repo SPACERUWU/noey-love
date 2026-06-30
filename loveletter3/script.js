@@ -38,31 +38,37 @@
   blocks.forEach(b => obs.observe(b));
 })();
 
-// ===== WISHLIST =====
+// ===== WISHLIST — Firebase real-time sync =====
 (function () {
   const items = document.querySelectorAll('.wish-item');
   if (!items.length) return;
 
-  const STORAGE_KEY = 'noey_wishlist_m3';
+  const DB = 'https://noey-3b12d-default-rtdb.asia-southeast1.firebasedatabase.app/wishlist';
 
-  function load() {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; }
+  // ── Apply a single key's state to the UI ──────────────────────────
+  function applyState(key, val) {
+    const item = document.querySelector(`.wish-item[data-key="${key}"]`);
+    if (item) item.classList.toggle('done', !!val);
   }
 
-  function save(state) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }
+  // ── Real-time listener: SSE from Firebase ─────────────────────────
+  const es = new EventSource(`${DB}.json`);
+  es.addEventListener('put', (e) => {
+    const { path, data } = JSON.parse(e.data);
+    if (path === '/' && data && typeof data === 'object') {
+      // initial load — full snapshot
+      Object.entries(data).forEach(([k, v]) => applyState(k, v));
+    } else if (path.startsWith('/') && path.length > 1) {
+      // single key update from either device
+      applyState(path.slice(1), data);
+    }
+  });
 
-  let state = load();
-
+  // ── Scroll reveal + click handlers ────────────────────────────────
   items.forEach((item) => {
     const key = item.dataset.key;
     const btn = item.querySelector('.wish-check');
 
-    // restore saved state
-    if (state[key]) item.classList.add('done');
-
-    // scroll reveal with stagger
     const idx = [...items].indexOf(item);
     const obs = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
@@ -72,15 +78,17 @@
     }, { threshold: 0.2 });
     obs.observe(item);
 
-    // toggle on click (item or button)
     function toggle() {
-      const done = item.classList.toggle('done');
-      state[key] = done;
-      save(state);
+      const done = item.classList.toggle('done'); // optimistic update
+      fetch(`${DB}/${key}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(done),
+      }).catch(() => item.classList.toggle('done', !done)); // revert on error
     }
 
     item.addEventListener('click', toggle);
-    btn.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
+    if (btn) btn.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
   });
 })();
 
