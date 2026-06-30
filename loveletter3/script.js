@@ -43,7 +43,9 @@
   const items = document.querySelectorAll('.wish-item');
   if (!items.length) return;
 
-  const DB = 'https://noey-3b12d-default-rtdb.asia-southeast1.firebasedatabase.app/wishlist';
+  const DB   = 'https://noey-3b12d-default-rtdb.asia-southeast1.firebasedatabase.app/wishlist';
+  const dot  = document.getElementById('syncDot');
+  const setDot = (ok) => { if (dot) { dot.textContent = ok ? '🟢' : '🔴'; dot.style.opacity = '1'; } };
 
   // ── Apply a single key's state to the UI ──────────────────────────
   function applyState(key, val) {
@@ -51,36 +53,20 @@
     if (item) item.classList.toggle('done', !!val);
   }
 
-  // ── Fetch and apply full state from Firebase ──────────────────────
+  // ── Fetch full state from Firebase ────────────────────────────────
   function syncAll() {
     fetch(`${DB}.json`)
-      .then(r => r.json())
+      .then(r => { if (!r.ok) throw r.status; return r.json(); })
       .then(data => {
+        setDot(true);
         if (!data || typeof data !== 'object') return;
         Object.entries(data).forEach(([k, v]) => applyState(k, v));
       })
-      .catch(() => {});
+      .catch(err => { console.error('[wishlist] Firebase error', err); setDot(false); });
   }
 
-  // load on page open
   syncAll();
-
-  // poll every 3 seconds — catches updates even if SSE drops
   setInterval(syncAll, 3000);
-
-  // SSE for faster updates (best-effort)
-  try {
-    const es = new EventSource(`${DB}.json`);
-    es.addEventListener('put', (e) => {
-      const { path, data } = JSON.parse(e.data);
-      if (path === '/' && data && typeof data === 'object') {
-        Object.entries(data).forEach(([k, v]) => applyState(k, v));
-      } else if (path.length > 1) {
-        applyState(path.slice(1), data);
-      }
-    });
-    es.onerror = () => es.close(); // let polling take over if SSE fails
-  } catch(e) {}
 
   // ── Scroll reveal + click handlers ────────────────────────────────
   items.forEach((item) => {
