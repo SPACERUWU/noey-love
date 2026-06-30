@@ -51,18 +51,36 @@
     if (item) item.classList.toggle('done', !!val);
   }
 
-  // ── Real-time listener: SSE from Firebase ─────────────────────────
-  const es = new EventSource(`${DB}.json`);
-  es.addEventListener('put', (e) => {
-    const { path, data } = JSON.parse(e.data);
-    if (path === '/' && data && typeof data === 'object') {
-      // initial load — full snapshot
-      Object.entries(data).forEach(([k, v]) => applyState(k, v));
-    } else if (path.startsWith('/') && path.length > 1) {
-      // single key update from either device
-      applyState(path.slice(1), data);
-    }
-  });
+  // ── Fetch and apply full state from Firebase ──────────────────────
+  function syncAll() {
+    fetch(`${DB}.json`)
+      .then(r => r.json())
+      .then(data => {
+        if (!data || typeof data !== 'object') return;
+        Object.entries(data).forEach(([k, v]) => applyState(k, v));
+      })
+      .catch(() => {});
+  }
+
+  // load on page open
+  syncAll();
+
+  // poll every 3 seconds — catches updates even if SSE drops
+  setInterval(syncAll, 3000);
+
+  // SSE for faster updates (best-effort)
+  try {
+    const es = new EventSource(`${DB}.json`);
+    es.addEventListener('put', (e) => {
+      const { path, data } = JSON.parse(e.data);
+      if (path === '/' && data && typeof data === 'object') {
+        Object.entries(data).forEach(([k, v]) => applyState(k, v));
+      } else if (path.length > 1) {
+        applyState(path.slice(1), data);
+      }
+    });
+    es.onerror = () => es.close(); // let polling take over if SSE fails
+  } catch(e) {}
 
   // ── Scroll reveal + click handlers ────────────────────────────────
   items.forEach((item) => {
