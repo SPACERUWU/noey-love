@@ -120,14 +120,14 @@
 
     .chapters {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 20px;
       width: 100%;
       animation: fadeDown 0.9s ease 0.6s both;
     }
 
     @media (max-width: 600px) {
-      .chapters { grid-template-columns: 1fr; max-width: 320px; }
+      .chapters { grid-template-columns: repeat(2, 1fr); max-width: 480px; }
     }
 
     .chapter-card {
@@ -235,6 +235,15 @@
       animation: fadeDown 0.9s ease 0.8s both;
     }
 
+    /* month 4 — cool blue */
+    .chapter-card.m4 { border-color: rgba(140,170,255,0.25); }
+    .chapter-card.m4::before { background: radial-gradient(circle at 50% 0%, rgba(140,170,255,0.12), transparent 70%); }
+    .chapter-card.m4:hover { border-color: rgba(140,170,255,0.55); box-shadow: 0 12px 40px rgba(140,170,255,0.18); }
+    .chapter-card.m4:hover::before { opacity: 1; }
+    .chapter-card.m4 .c-num { color: #8caeff; }
+    .chapter-card.m4 .c-btn { border-color: rgba(140,170,255,0.5); color: #8caeff; }
+    .chapter-card.m4 .c-btn:hover { background: #3a5abf; color: #fff; border-color: #3a5abf; }
+
     @keyframes fadeDown {
       from { opacity: 0; transform: translateY(-16px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -281,6 +290,14 @@
         <div class="c-num">Month 3</div>
         <div class="c-title">Quietly in Love</div>
         <div class="c-desc">Three months of growing, feeling, knowing.</div>
+        <button class="c-btn">Open</button>
+      </a>
+
+      <a class="chapter-card m4" href="loveletter4/index.html">
+        <div class="c-emoji">🌙</div>
+        <div class="c-num">Month 4</div>
+        <div class="c-title">Still Here</div>
+        <div class="c-desc">Even on the hard days, still thinking of you.</div>
         <button class="c-btn">Open</button>
       </a>
     </div>

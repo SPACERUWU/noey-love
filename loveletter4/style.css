@@ -1,0 +1,145 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { min-height: 100%; }
+
+body {
+  background: #05080f;
+  font-family: 'Nunito', sans-serif;
+  color: #fff;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+canvas#bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── nav ── */
+.nav-btn {
+  position: fixed;
+  top: 20px; right: 20px;
+  z-index: 99;
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(140,170,255,0.5);
+  text-decoration: none;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(140,170,255,0.18);
+  backdrop-filter: blur(10px);
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav-btn:hover {
+  color: rgba(140,170,255,0.9);
+  border-color: rgba(140,170,255,0.4);
+}
+
+/* ── page ── */
+.page {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 600px;
+  padding: 120px 32px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.month-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(140,170,255,0.35);
+  margin-bottom: 48px;
+  animation: fadeUp 0.8s ease both;
+}
+
+/* ── note ── */
+.note-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.note-gap { height: 22px; }
+
+.note-line {
+  font-size: clamp(1rem, 2.8vw, 1.18rem);
+  font-weight: 400;
+  color: rgba(220, 230, 255, 0.75);
+  line-height: 1.8;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 0.7s ease forwards;
+  animation-delay: calc(0.3s + var(--i) * 0.12s);
+}
+
+.note-last {
+  color: rgba(220, 230, 255, 0.92);
+  font-weight: 500;
+}
+
+.note-sig {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.3rem;
+  color: rgba(140,170,255,0.6);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 0.7s ease forwards;
+  animation-delay: calc(0.3s + var(--i) * 0.12s);
+  margin-top: 8px;
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── chapter nav ── */
+.chapter-nav {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 32px 60px;
+}
+
+.chapter-btn {
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 9px 22px;
+  border-radius: 20px;
+  border: 1px solid rgba(140,170,255,0.25);
+  color: rgba(140,170,255,0.55);
+  transition: color 0.2s, border-color 0.2s;
+}
+.chapter-btn:hover { color: rgba(140,170,255,0.9); border-color: rgba(140,170,255,0.5); }
+.chapter-btn.disabled { opacity: 0.25; pointer-events: none; }
+
+.chapter-heart {
+  font-size: 1rem;
+  color: rgba(140,170,255,0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50%       { transform: scale(1.2); opacity: 0.6; }
+}
+
+/* ── responsive ── */
+@media (max-width: 480px) {
+  .page { padding: 100px 24px 60px; }
+  .note-line { font-size: 0.97rem; }
+}
